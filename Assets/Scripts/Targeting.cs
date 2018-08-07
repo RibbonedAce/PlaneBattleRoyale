@@ -21,7 +21,7 @@ public class Targeting : MonoBehaviour
     /// <para>The tag of the objects to target</para>
     /// </summary>
     [SerializeField]
-    private string targetTag;
+    private string[] targetTags;
 
     /// <summary>
     /// <para>The Reticle prefab for each target</para>
@@ -33,7 +33,7 @@ public class Targeting : MonoBehaviour
     /// <para>The Blip prefab for each target</para>
     /// </summary>
     [SerializeField]
-    private GameObject blip;
+    private GameObject[] blips;
 
     /// <summary>
     /// <para>The canvas to put the Reticles on</para>
@@ -153,15 +153,22 @@ public class Targeting : MonoBehaviour
                 ++i;
             }
         }
-        foreach (GameObject g in GameObject.FindGameObjectsWithTag(targetTag))
+        for (int i = 0; i < targetTags.Length; ++i)
         {
-            if (!Target.ContainsTransform(Targets, g.transform))
+            foreach (GameObject g in GameObject.FindGameObjectsWithTag(targetTags[i]))
             {
-                Reticle r = Instantiate(reticle, canvas).GetComponent<Reticle>();
-                r.Target = g.transform;
-                Blip b = Instantiate(blip, radar).GetComponent<Blip>();
-                b.Target = g.transform;
-                Targets.Add(new Target(g.transform, r, b));
+                if (!Target.ContainsTransform(Targets, g.transform))
+                {
+                    Blip b = Instantiate(blips[i], radar).GetComponent<Blip>();
+                    b.Target = g.transform;
+                    Reticle r = null;
+                    if (i == 0)
+                    {
+                        r = Instantiate(reticle, canvas).GetComponent<Reticle>();
+                        r.Target = g.transform;
+                    }
+                    Targets.Add(new Target(g.transform, r, b));
+                }
             }
         }
 
@@ -200,13 +207,16 @@ public class Targeting : MonoBehaviour
         float closestDistance = float.MaxValue;
         foreach (Target t in Targets)
         {
-            RectTransform rt = t.reticle.GetComponent<RectTransform>();
-            Vector2 pos = Vector2.Lerp(rt.anchorMin, rt.anchorMax, 0.5f);
-            float distance = Vector2.Distance(pos, Vector2.one * 0.5f);
-            if (t != currentTarget && distance < closestDistance)
+            if (t.reticle != null)
             {
-                result = t;
-                closestDistance = distance;
+                RectTransform rt = t.reticle.GetComponent<RectTransform>();
+                Vector2 pos = Vector2.Lerp(rt.anchorMin, rt.anchorMax, 0.5f);
+                float distance = Vector2.Distance(pos, Vector2.one * 0.5f);
+                if (t != currentTarget && distance < closestDistance)
+                {
+                    result = t;
+                    closestDistance = distance;
+                }
             }
         }
         return result;

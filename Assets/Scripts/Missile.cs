@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class Missile : Movement 
+public class Missile : Movement
 {
     #region Variables
     /// <summary>
@@ -11,20 +11,37 @@ public class Missile : Movement
     /// </summary>
     [SerializeField]
     private float turnSpeed;
-	#endregion
-	
-	#region Properties
+
+    /// <summary>
+    /// <para>How much damage the missile does</para>
+    /// </summary>
+    [SerializeField]
+    private int damage;
+    #endregion
+
+    #region Properties
     /// <summary>
     /// <para>The target to go towards</para>
     /// </summary>
-	public Transform Target { get; set; }
-	#endregion
-	
-	#region Events
-	/// <summary>
+    public Transform Target { get; set; }
+
+    /// <summary>
+    /// <para>How much damage the missile does</para>
+    /// </summary>
+    public int Damage
+    {
+        get
+        {
+            return damage;
+        }
+    }
+    #endregion
+
+    #region Events
+    /// <summary>
     /// Awake is called before start
     /// </summary>
-	protected override void Awake()
+    protected override void Awake()
 	{
         base.Awake();
 	}
