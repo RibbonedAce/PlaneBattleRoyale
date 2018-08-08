@@ -39,7 +39,7 @@ public class DirectionUI : MonoBehaviour
     /// </summary>
 	private void Update() 
 	{
-        _text.text = string.Format("{0:000}", (Vector3.SignedAngle(Vector3.forward, Vector3.ProjectOnPlane(Targeting.Instance.Source.forward, Vector3.up), Vector3.up) + 360) % 360);
+        _text.text = string.Format("{0:000}", (Vector3.SignedAngle(Vector3.forward, Vector3.ProjectOnPlane(PlayerPlane.Instance.transform.forward, Vector3.up), Vector3.up) + 360) % 360);
     }   
 	
 	/// <summary>

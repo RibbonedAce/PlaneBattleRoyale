@@ -8,15 +8,15 @@ public class SpeedUI : MonoBehaviour
 {
     #region Variables
     /// <summary>
-    /// <para>The rigidbody to monitor speed</para>
-    /// </summary>
-    private Rigidbody _rigidbody;
-
-    /// <summary>
     /// <para>The text to indicate stalling</para>
     /// </summary>
     [SerializeField]
     private Text stallText;
+
+    /// <summary>
+    /// <para>The rigidbody to monitor speed</para>
+    /// </summary>
+    private Rigidbody _rigidbody;
 
     /// <summary>
     /// <para>The Text component attached</para>
@@ -42,7 +42,7 @@ public class SpeedUI : MonoBehaviour
     /// </summary>
 	private void Start() 
 	{
-        _rigidbody = Targeting.Instance.Source.GetComponent<Rigidbody>();
+        _rigidbody = PlayerPlane.Instance.GetComponent<Rigidbody>();
     }
 	
 	/// <summary>

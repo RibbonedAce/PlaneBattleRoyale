@@ -1,29 +1,24 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
-[RequireComponent(typeof(Text))]
-public class AltitudeUI : MonoBehaviour 
+public class Ammo : MonoBehaviour 
 {
-    #region Variables
-    /// <summary>
-    /// <para>The Text component attached</para>
-    /// </summary>
-    private Text _text;
-    #endregion
-
-    #region Properties
-
-    #endregion
-
-    #region Events
-    /// <summary>
+	#region Variables
+	
+	#endregion
+	
+	#region Properties
+	
+	#endregion
+	
+	#region Events
+	/// <summary>
     /// Awake is called before start
     /// </summary>
-    private void Awake()
+	private void Awake()
 	{
-        _text = GetComponent<Text>();
+		
 	}
 	
 	/// <summary>
@@ -39,7 +34,7 @@ public class AltitudeUI : MonoBehaviour
     /// </summary>
 	private void Update() 
 	{
-        _text.text = string.Format("Altitude:\n{0:0.0}", PlayerPlane.Instance.transform.position.y);
+		
 	}
 	
 	/// <summary>

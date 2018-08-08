@@ -51,6 +51,33 @@ public class PlayerPlane : Movement
 
     #region Properties
     /// <summary>
+    /// <para>The instance to reference</para>
+    /// </summary>
+    public static PlayerPlane Instance { get; private set; }
+
+    /// <summary>
+    /// <para>The maximum health the plane can have</para>
+    /// </summary>
+    public int MaxHealth
+    {
+        get
+        {
+            return maxHealth;
+        }
+    }
+
+    /// <summary>
+    /// <para>The amount of ammo</para>
+    /// </summary>
+    public int Ammo
+    {
+        get
+        {
+            return ammo;
+        }
+    }
+
+    /// <summary>
     /// <para>The health of the plane</para>
     /// </summary>
     public int Health
@@ -77,7 +104,16 @@ public class PlayerPlane : Movement
     protected override void Awake()
 	{
         base.Awake();
-	}
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(this);
+        }
+        Health = maxHealth / 2;
+    }
 
     /// <summary>
     /// Use this for initialization
@@ -85,7 +121,6 @@ public class PlayerPlane : Movement
     protected override void Start() 
 	{
         base.Start();
-        Health = maxHealth;
     }
 
     /// <summary>
@@ -115,7 +150,7 @@ public class PlayerPlane : Movement
     /// <summary>
     /// Called when something collides with the Game Object
     /// </summary>
-    /// <param name="collision"></param>
+    /// <param name="collision">The collision that occurred</param>
     protected override void OnCollisionEnter(Collision collision)
     {
         Missile m = collision.collider.GetComponent<Missile>();
@@ -149,8 +184,12 @@ public class PlayerPlane : Movement
     /// </summary>
     protected virtual void FireMissile()
     {
-        GameObject g = Instantiate(missile, transform.position - transform.up, transform.rotation);
-        g.GetComponent<Missile>().Target = Targeting.Instance.TrackedTarget;
+        if (ammo > 0)
+        {
+            --ammo;
+            GameObject g = Instantiate(missile, transform.position - transform.up, transform.rotation);
+            g.GetComponent<Missile>().Target = Targeting.Instance.TrackedTarget;
+        }
     }
 	#endregion
 	

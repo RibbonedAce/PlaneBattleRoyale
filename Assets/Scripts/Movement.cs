@@ -80,10 +80,13 @@ public class Movement : MonoBehaviour
     /// <summary>
     /// Called when something collides with the Game Object
     /// </summary>
-    /// <param name="collision"></param>
+    /// <param name="collision">The collision that occurred</param>
     protected virtual void OnCollisionEnter(Collision collision)
     {
-        Destroy(gameObject);
+        if (!collision.collider.isTrigger)
+        {
+            Destroy(gameObject);
+        }
     }
 	#endregion
 	
