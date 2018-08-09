@@ -21,7 +21,6 @@ GameObject:
   - component: {fileID: 4120888142936366}
   - component: {fileID: 33727236222284944}
   - component: {fileID: 23017111655480800}
-  - component: {fileID: 65044238579279130}
   m_Layer: 0
   m_Name: Cube (5)
   m_TagString: Untagged
@@ -39,7 +38,6 @@ GameObject:
   - component: {fileID: 4690983330112304}
   - component: {fileID: 33742767852913560}
   - component: {fileID: 23630650130686944}
-  - component: {fileID: 65583485923670238}
   m_Layer: 0
   m_Name: Cube (2)
   m_TagString: Untagged
@@ -77,7 +75,6 @@ GameObject:
   - component: {fileID: 4022991104142138}
   - component: {fileID: 33592976948915160}
   - component: {fileID: 23348391256838306}
-  - component: {fileID: 65989622274079124}
   m_Layer: 0
   m_Name: Cube (6)
   m_TagString: Untagged
@@ -95,7 +92,6 @@ GameObject:
   - component: {fileID: 4279467184829322}
   - component: {fileID: 33397646274617092}
   - component: {fileID: 23644662101837590}
-  - component: {fileID: 65166807622554306}
   m_Layer: 0
   m_Name: Cube (8)
   m_TagString: Untagged
@@ -113,7 +109,6 @@ GameObject:
   - component: {fileID: 4824261708927474}
   - component: {fileID: 33919277850409906}
   - component: {fileID: 23565984483571300}
-  - component: {fileID: 65513900751842658}
   m_Layer: 0
   m_Name: Cube (7)
   m_TagString: Untagged
@@ -131,7 +126,6 @@ GameObject:
   - component: {fileID: 4520102732896882}
   - component: {fileID: 33434325299143376}
   - component: {fileID: 23631851647727366}
-  - component: {fileID: 65397201425716802}
   m_Layer: 0
   m_Name: Cube (3)
   m_TagString: Untagged
@@ -149,7 +143,6 @@ GameObject:
   - component: {fileID: 4829159781217898}
   - component: {fileID: 33659137533813200}
   - component: {fileID: 23341325257438906}
-  - component: {fileID: 65952296408848186}
   m_Layer: 0
   m_Name: Cube (1)
   m_TagString: Untagged
@@ -167,7 +160,6 @@ GameObject:
   - component: {fileID: 4688805499199136}
   - component: {fileID: 33840337786904250}
   - component: {fileID: 23395805388140870}
-  - component: {fileID: 65579539824153860}
   m_Layer: 0
   m_Name: Cube (4)
   m_TagString: Untagged
@@ -651,102 +643,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 14
   m_CollisionDetection: 0
---- !u!65 &65044238579279130
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1092722418973206}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!65 &65166807622554306
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1295342293809400}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!65 &65397201425716802
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1420844259507244}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!65 &65513900751842658
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1404362417916676}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!65 &65579539824153860
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1944164652014266}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!65 &65583485923670238
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1127659527788314}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!65 &65952296408848186
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1674448146397384}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!65 &65989622274079124
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1176467812788280}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &114911686131311244
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -760,6 +656,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotationRate: 0.5
   color: {r: 0, g: 0.5019608, b: 1, a: 1}
+  feedEntry: {fileID: 1355559459060878, guid: 854afaac0cd3e7b4ebb14a282b3a1e18, type: 2}
+  message: Mobility increased!
   ammo: 0
   health: 0
   speed: 0

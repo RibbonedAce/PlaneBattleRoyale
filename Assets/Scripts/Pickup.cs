@@ -19,6 +19,18 @@ public class Pickup : MonoBehaviour
     private Color color;
 
     /// <summary>
+    /// <para>The object of the game feed to use when picked up</para>
+    /// </summary>
+    [SerializeField]
+    private GameObject feedEntry;
+
+    /// <summary>
+    /// <para>The message to put in the popup area</para>
+    /// </summary>
+    [SerializeField]
+    private string message;
+
+    /// <summary>
     /// <para>How much ammo to receive</para>
     /// </summary>
     [SerializeField]
@@ -140,6 +152,8 @@ public class Pickup : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            TextEntry t = Instantiate(feedEntry, TextFeed.Instance.transform).GetComponent<TextEntry>();
+            t.Text = message;
             other.GetComponent<PlayerPlane>().ApplyPickup(this);
             Destroy(gameObject);
         }

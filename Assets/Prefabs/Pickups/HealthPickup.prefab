@@ -21,7 +21,6 @@ GameObject:
   - component: {fileID: 4299012648877100}
   - component: {fileID: 33976795130538840}
   - component: {fileID: 23210790503926356}
-  - component: {fileID: 65349937224338810}
   m_Layer: 0
   m_Name: Cube (5)
   m_TagString: Untagged
@@ -39,7 +38,6 @@ GameObject:
   - component: {fileID: 4091208127369432}
   - component: {fileID: 33496173062199692}
   - component: {fileID: 23188281372848232}
-  - component: {fileID: 65523291085938014}
   m_Layer: 0
   m_Name: Cube (8)
   m_TagString: Untagged
@@ -57,7 +55,6 @@ GameObject:
   - component: {fileID: 4247325785094118}
   - component: {fileID: 33736519976160750}
   - component: {fileID: 23521974160772844}
-  - component: {fileID: 65761501322595714}
   m_Layer: 0
   m_Name: Cube (7)
   m_TagString: Untagged
@@ -75,7 +72,6 @@ GameObject:
   - component: {fileID: 4675302099879452}
   - component: {fileID: 33411718557490100}
   - component: {fileID: 23130444445428280}
-  - component: {fileID: 65910941017537986}
   m_Layer: 0
   m_Name: Cube (2)
   m_TagString: Untagged
@@ -93,7 +89,6 @@ GameObject:
   - component: {fileID: 4775320823877128}
   - component: {fileID: 33893596539355846}
   - component: {fileID: 23173797659015924}
-  - component: {fileID: 65194049438149538}
   m_Layer: 0
   m_Name: Cube (4)
   m_TagString: Untagged
@@ -111,7 +106,6 @@ GameObject:
   - component: {fileID: 4110309695857320}
   - component: {fileID: 33820452921684212}
   - component: {fileID: 23052256344370936}
-  - component: {fileID: 65239879437015610}
   m_Layer: 0
   m_Name: Cube (6)
   m_TagString: Untagged
@@ -129,7 +123,6 @@ GameObject:
   - component: {fileID: 4273764880969306}
   - component: {fileID: 33457477725829924}
   - component: {fileID: 23618952752102428}
-  - component: {fileID: 65995018102359692}
   m_Layer: 0
   m_Name: Cube (1)
   m_TagString: Untagged
@@ -147,7 +140,6 @@ GameObject:
   - component: {fileID: 4610674154415096}
   - component: {fileID: 33145036462388658}
   - component: {fileID: 23538846306517680}
-  - component: {fileID: 65994921003825418}
   m_Layer: 0
   m_Name: Cube (3)
   m_TagString: Untagged
@@ -286,7 +278,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1897813953455842}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 20, y: 20, z: 20}
+  m_LocalPosition: {x: 20, y: 20, z: 60}
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_Children:
   - {fileID: 4273764880969306}
@@ -651,102 +643,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 14
   m_CollisionDetection: 0
---- !u!65 &65194049438149538
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1604211029640042}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!65 &65239879437015610
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1663348322544194}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!65 &65349937224338810
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1013272382471862}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!65 &65523291085938014
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1296735496317560}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!65 &65761501322595714
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1518897144871314}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!65 &65910941017537986
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1563353375105934}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!65 &65994921003825418
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1783876443255790}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!65 &65995018102359692
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1691422111483012}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &114879880548398528
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -760,6 +656,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotationRate: 0.5
   color: {r: 1, g: 0, b: 0, a: 1}
+  feedEntry: {fileID: 1804790988251196, guid: 2e5950d55d1e1794aa408d5877d46473, type: 2}
+  message: Healed some damage!
   ammo: 0
   health: 25
   speed: 0
