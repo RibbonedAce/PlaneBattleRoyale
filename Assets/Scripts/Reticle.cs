@@ -25,9 +25,24 @@ public class Reticle : MonoBehaviour
     private static Color inactiveColor;
 
     /// <summary>
+    /// <para>The transform to base distances on</para>
+    /// </summary>
+    private Transform source;
+
+    /// <summary>
+    /// <para>The target to track</para>
+    /// </summary>
+    private Transform target;
+
+    /// <summary>
     /// <para>The maximum distance to lock on at</para>
     /// </summary>
-    private static readonly float lockDistance = 80f;
+    private float lockDistance = 80f;
+
+    /// <summary>
+    /// <para>Whether the reticle has been set up</para>
+    /// </summary>
+    private bool ready;
 
     /// <summary>
     /// <para>The Rect Transform component attached</para>
@@ -38,13 +53,9 @@ public class Reticle : MonoBehaviour
     /// <para>The Image component attached</para>
     /// </summary>
     private Image _image;
-	#endregion
-	
-	#region Properties
-    /// <summary>
-    /// <para>The target to track</para>
-    /// </summary>
-	public Transform Target { get; set; }
+    #endregion
+
+    #region Properties
 
     /// <summary>
     /// <para>Whether the reticle is actively used</para>
@@ -54,11 +65,11 @@ public class Reticle : MonoBehaviour
     /// <summary>
     /// <para>Whether the Reticle is locked onto the target</para>
     /// </summary>
-    public bool Locked
+    private bool Locked
     {
         get
         {
-            return Active && Vector3.Distance(Targeting.Instance.Source.position, Target.position) <= lockDistance;
+            return Active && Vector3.Distance(source.position, target.position) <= lockDistance;
         }
     }
 	#endregion
@@ -71,6 +82,7 @@ public class Reticle : MonoBehaviour
 	{
         _rectTransform = GetComponent<RectTransform>();
         _image = GetComponent<Image>();
+        ready = false;
         Active = false;
 
         // Assigning static variables
@@ -101,32 +113,35 @@ public class Reticle : MonoBehaviour
     /// </summary>
 	private void Update() 
 	{
-        // Check if target destroyed
-        if (Target == null)
+        if (ready)
         {
-            Destroy(gameObject);
-            return;
-        }
+            // Check if target destroyed
+            if (target == null)
+            {
+                Destroy(gameObject);
+                return;
+            }
 
-        // Position
-        Vector2 canvasPos = Utils.FrontWorldtoViewportPoint(Target.position);
-        _rectTransform.SetAnchors(canvasPos - Vector2.one * 0.05f, canvasPos + Vector2.one * 0.05f);
+            // Position
+            Vector2 canvasPos = Utils.FrontWorldtoViewportPoint(target.position);
+            _rectTransform.SetAnchors(canvasPos - Vector2.one * 0.05f, canvasPos + Vector2.one * 0.05f);
 
-        // Check if active
-        if (!Active && _image.color != inactiveColor)
-        {
-            _image.sprite = lockFalseSprite;
-            _image.color = inactiveColor;
-        }
-        else if (Active && Locked && _image.color != Color.red)
-        {
-            _image.sprite = lockTrueSprite;
-            _image.color = Color.red;
-        }
-        else if (Active && !Locked && _image.color != Color.green)
-        {
-            _image.sprite = lockFalseSprite;
-            _image.color = Color.green;
+            // Check if active
+            if (!Active && _image.color != inactiveColor)
+            {
+                _image.sprite = lockFalseSprite;
+                _image.color = inactiveColor;
+            }
+            else if (Active && Locked && _image.color != Color.red)
+            {
+                _image.sprite = lockTrueSprite;
+                _image.color = Color.red;
+            }
+            else if (Active && !Locked && _image.color != Color.green)
+            {
+                _image.sprite = lockFalseSprite;
+                _image.color = Color.green;
+            }
         }
     }
 	
@@ -140,10 +155,21 @@ public class Reticle : MonoBehaviour
     #endregion
 
     #region Methods
+    /// <summary>
+    /// Set up the blip's parameters
+    /// </summary>
+    /// <param name="_source">The source to base distances on</param>
+    /// /// <param name="_lockDistance">The maximum distance to lock on at</param>
+	public void Setup(Transform _target, Transform _source, float _lockDistance)
+    {
+        target = _target;
+        source = _source;
+        lockDistance = _lockDistance;
+        ready = true;
+    }
+    #endregion
 
-	#endregion
-	
-	#region Coroutines
-	
-	#endregion
+    #region Coroutines
+
+    #endregion
 }

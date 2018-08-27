@@ -47,8 +47,14 @@ public class Target
     /// <param name="active">What to set the activeness to</param>
     public void SetActive(bool active)
     {
-        reticle.Active = active;
-        blip.Active = active;
+        if (reticle != null)
+        {
+            reticle.Active = active;
+        }
+        if (blip != null)
+        {
+            blip.Active = active;
+        }
     }
 
     /// <summary>

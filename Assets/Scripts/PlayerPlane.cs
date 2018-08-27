@@ -4,49 +4,11 @@ using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(Collider))]
-public class PlayerPlane : Movement
+[RequireComponent(typeof(Targeting))]
+public class PlayerPlane : Plane
 {
     #region Variables
-    /// <summary>
-    /// <para>The maximum health the plane can have</para>
-    /// </summary>
-    [SerializeField]
-    protected int maxHealth;
-
-    /// <summary>
-    /// <para>The health of the plane</para>
-    /// </summary>
-    protected int health;
-
-    /// <summary>
-    /// <para>The minimum thrust on the plane</para>
-    /// </summary>
-    [SerializeField]
-    protected float minThrust;
-
-    /// <summary>
-    /// <para>The maximum thrust on the plane</para>
-    /// </summary>
-    [SerializeField]
-    protected float maxThrust;
-
-    /// <summary>
-    /// <para>How quickly the plane can turn</para>
-    /// </summary>
-    [SerializeField]
-    protected float turnSpeed;
-
-    /// <summary>
-    /// <para>The amount of ammo</para>
-    /// </summary>
-    [SerializeField]
-    protected int ammo;
-
-    /// <summary>
-    /// <para>The missile object to fire</para>
-    /// </summary>
-    [SerializeField]
-    protected GameObject missile;
+    
     #endregion
 
     #region Properties
@@ -54,47 +16,6 @@ public class PlayerPlane : Movement
     /// <para>The instance to reference</para>
     /// </summary>
     public static PlayerPlane Instance { get; private set; }
-
-    /// <summary>
-    /// <para>The maximum health the plane can have</para>
-    /// </summary>
-    public int MaxHealth
-    {
-        get
-        {
-            return maxHealth;
-        }
-    }
-
-    /// <summary>
-    /// <para>The amount of ammo</para>
-    /// </summary>
-    public int Ammo
-    {
-        get
-        {
-            return ammo;
-        }
-    }
-
-    /// <summary>
-    /// <para>The health of the plane</para>
-    /// </summary>
-    public int Health
-    {
-        get
-        {
-            return health;
-        }
-        set
-        {
-            health = Mathf.Clamp(value, 0, maxHealth);
-            if (health <= 0)
-            {
-                Destroy(gameObject);
-            }
-        }
-    }
     #endregion
 
     #region Events
@@ -103,7 +24,6 @@ public class PlayerPlane : Movement
     /// </summary>
     protected override void Awake()
 	{
-        base.Awake();
         if (Instance == null)
         {
             Instance = this;
@@ -112,7 +32,7 @@ public class PlayerPlane : Movement
         {
             Destroy(this);
         }
-        Health = maxHealth / 2;
+        base.Awake();
     }
 
     /// <summary>
@@ -131,7 +51,11 @@ public class PlayerPlane : Movement
         base.Update();
         if (Input.GetButtonDown("Fire"))
         {
-            FireMissile();
+            FireProjectile();
+        }
+        if (Input.GetButton("Switch"))
+        {
+            _targeting.GetClosestTarget();
         }
 	}
 
@@ -153,20 +77,11 @@ public class PlayerPlane : Movement
     /// <param name="collision">The collision that occurred</param>
     protected override void OnCollisionEnter(Collision collision)
     {
-        Missile m = collision.collider.GetComponent<Missile>();
-        if (m != null)
-        {
-            Health -= m.Damage;
-        }
-        else
-        {
-            base.OnCollisionEnter(collision);
-        }
+        base.OnCollisionEnter(collision);
     }
     #endregion
 
     #region Methods
-
     /// <summary>
     /// Apply a pickup to the player's plane
     /// </summary>
@@ -177,19 +92,6 @@ public class PlayerPlane : Movement
         maxThrust += p.Speed;
         turnSpeed += p.Turning;
         ammo += p.Ammo;
-    }
-
-    /// <summary>
-    /// Fires a missile at the current target
-    /// </summary>
-    protected virtual void FireMissile()
-    {
-        if (ammo > 0)
-        {
-            --ammo;
-            GameObject g = Instantiate(missile, transform.position - transform.up, transform.rotation);
-            g.GetComponent<Missile>().Target = Targeting.Instance.TrackedTarget;
-        }
     }
 	#endregion
 	

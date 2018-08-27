@@ -83,7 +83,6 @@ public class Movement : MonoBehaviour
     /// <param name="collision">The collision that occurred</param>
     protected virtual void OnCollisionEnter(Collision collision)
     {
-        Debug.Log(collision.collider.isTrigger);
         if (!collision.collider.isTrigger)
         {
             Destroy(gameObject);

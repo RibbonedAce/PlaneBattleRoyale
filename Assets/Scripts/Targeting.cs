@@ -6,12 +6,6 @@ public class Targeting : MonoBehaviour
 {
     #region Variables
     /// <summary>
-    /// <para>Where the distances of the targets are measured from</para>
-    /// </summary>
-    [SerializeField]
-    private Transform source;
-
-    /// <summary>
     /// <para>How many units away the radar can see enemies</para>
     /// </summary>
     [SerializeField]
@@ -48,33 +42,16 @@ public class Targeting : MonoBehaviour
     private Transform radar;
 
     /// <summary>
-    /// <para>The currently tracked target</para>
+    /// <para>The maximum distance to lock on at</para>
     /// </summary>
-    private Target currentTarget;
+    private static readonly float lockDistance = 80f;
+    #endregion
 
-	#endregion
-	
-	#region Properties
-    /// <summary>
-    /// <para>The instance to reference</para>
-    /// </summary>
-	public static Targeting Instance { get; private set; }
-
+    #region Properties
     /// <summary>
     /// <para>The list of targets</para>
     /// </summary>
     public List<Target> Targets { get; private set; }
-
-    /// <summary>
-    /// <para>Where the distances of the targets are measured from</para>
-    /// </summary>
-    public Transform Source
-    {
-        get
-        {
-            return source;
-        }
-    }
 
     /// <summary>
     /// <para>How many units away the radar can see enemies</para>
@@ -90,13 +67,18 @@ public class Targeting : MonoBehaviour
     /// <summary>
     /// <para>The target currently being tracked</para>
     /// </summary>
+    public Target CurrentTarget { get; private set; }
+
+    /// <summary>
+    /// <para>The target currently being locked</para>
+    /// </summary>
     public Transform TrackedTarget
     {
         get
         {
-            if (currentTarget != null && currentTarget.reticle.Locked)
+            if (CurrentTarget != null && Vector3.Distance(transform.position, CurrentTarget.transform.position) <= lockDistance)
             {
-                return currentTarget.transform;
+                return CurrentTarget.transform;
             }
             else
             {
@@ -112,15 +94,6 @@ public class Targeting : MonoBehaviour
     /// </summary>
 	private void Awake()
 	{
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else
-        {
-            Debug.LogError("More than one instance of Targeting.");
-            enabled = false;
-        }
         Targets = new List<Target>();
 	}
 	
@@ -142,9 +115,9 @@ public class Targeting : MonoBehaviour
         {
             if (Targets[i].transform == null)
             {
-                if (currentTarget == Targets[i])
+                if (CurrentTarget == Targets[i])
                 {
-                    currentTarget = null;
+                    CurrentTarget = null;
                 }
                 Targets.RemoveAt(i);
             }
@@ -159,31 +132,29 @@ public class Targeting : MonoBehaviour
             {
                 if (!Target.ContainsTransform(Targets, g.transform))
                 {
-                    Blip b = Instantiate(blips[i], radar).GetComponent<Blip>();
-                    b.Target = g.transform;
+                    Blip b = null;
+                    if (radar != null)
+                    {
+                        b = Instantiate(blips[i], radar).GetComponent<Blip>();
+                        b.Setup(g.transform, transform, range);
+                    }
+
                     Reticle r = null;
-                    if (i == 0)
+                    if (canvas != null)
                     {
                         r = Instantiate(reticle, canvas).GetComponent<Reticle>();
-                        r.Target = g.transform;
+                        r.Setup(g.transform, transform, lockDistance);
                     }
+
                     Targets.Add(new Target(g.transform, r, b));
                 }
             }
         }
 
         // Updating the active reticle
-        if (currentTarget == null || Input.GetButtonDown("Switch"))
+        if (CurrentTarget == null)
         {
-            if (currentTarget != null)
-            {
-                currentTarget.SetActive(false);
-            }
-            currentTarget = GetClosestTarget();
-            if (currentTarget != null)
-            {
-                currentTarget.SetActive(true);
-            }
+            GetClosestTarget();
         }
 	}
 	
@@ -201,25 +172,28 @@ public class Targeting : MonoBehaviour
     /// Finds the reticle closest to the center of the screen
     /// </summary>
     /// <returns>The reticle whose average anchors are closest to (0.5, 0.5)</returns>
-    private Target GetClosestTarget()
+    public void GetClosestTarget()
     {
-        Target result = null;
+        Target result = CurrentTarget;
         float closestDistance = float.MaxValue;
         foreach (Target t in Targets)
         {
-            if (t.reticle != null)
+            float distance = Vector3.Angle(transform.forward, t.transform.position - transform.position);
+            if (t != CurrentTarget && distance < closestDistance)
             {
-                RectTransform rt = t.reticle.GetComponent<RectTransform>();
-                Vector2 pos = Vector2.Lerp(rt.anchorMin, rt.anchorMax, 0.5f);
-                float distance = Vector2.Distance(pos, Vector2.one * 0.5f);
-                if (t != currentTarget && distance < closestDistance)
-                {
-                    result = t;
-                    closestDistance = distance;
-                }
+                result = t;
+                closestDistance = distance;
             }
         }
-        return result;
+        if (CurrentTarget != null && CurrentTarget != result)
+        {
+            CurrentTarget.SetActive(false);
+        }
+        if (result != null && result != CurrentTarget)
+        {
+            result.SetActive(true);
+        }
+        CurrentTarget = result;
     }
 	#endregion
 	

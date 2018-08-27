@@ -77,7 +77,7 @@ public class Missile : Movement
     /// <summary>
     /// Called when something collides with the Game Object
     /// </summary>
-    /// <param name="collision"></param>
+    /// <param name="collision">The collision that occurred</param>
     protected override void OnCollisionEnter(Collision collision)
     {
         base.OnCollisionEnter(collision);

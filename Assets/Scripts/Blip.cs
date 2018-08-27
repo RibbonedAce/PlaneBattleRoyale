@@ -32,14 +32,29 @@ public class Blip : MonoBehaviour
     /// <para>The starting color of the image</para>
     /// </summary>
     private Color color;
-    #endregion
 
-    #region Properties
     /// <summary>
     /// <para>The target to track</para>
     /// </summary>
-    public Transform Target { get; set; }
+    private Transform target;
 
+    /// <summary>
+    /// <para>The transform to base distances on</para>
+    /// </summary>
+    private Transform source;
+
+    /// <summary>
+    /// <para>The maximum distance of the blip from the source</para>
+    /// </summary>
+    private float range;
+
+    /// <summary>
+    /// <para>Whether the blip has been set up yet</para>
+    /// </summary>
+    private bool ready;
+    #endregion
+
+    #region Properties
     /// <summary>
     /// <para>Whether the blip is actively used</para>
     /// </summary>
@@ -55,6 +70,7 @@ public class Blip : MonoBehaviour
         _rectTransform = GetComponent<RectTransform>();
         _image = GetComponent<Image>();
         color = _image.color;
+        ready = false;
         Active = false;
     }
 	
@@ -71,28 +87,31 @@ public class Blip : MonoBehaviour
     /// </summary>
 	private void Update() 
 	{
-        // Check if target destroyed
-        if (Target == null)
+        if (ready)
         {
-            Destroy(gameObject);
-            return;
-        }
+            // Check if target destroyed
+            if (target == null)
+            {
+                Destroy(gameObject);
+                return;
+            }
 
-        // Position
-        Vector3 diff = Vector3.ProjectOnPlane(Target.position - Targeting.Instance.Source.position, Vector3.up);
-        float angle = Vector3.SignedAngle(Vector3.ProjectOnPlane(Targeting.Instance.Source.forward, Vector3.up), diff, Vector3.up);
-        _rectTransform.anchoredPosition = origin + Utils.VectorFromAngle(angle, 100 * diff.magnitude / Targeting.Instance.Range);
+            // Position
+            Vector3 diff = Vector3.ProjectOnPlane(target.position - source.position, Vector3.up);
+            float angle = Vector3.SignedAngle(Vector3.ProjectOnPlane(source.forward, Vector3.up), diff, Vector3.up);
+            _rectTransform.anchoredPosition = origin + Utils.VectorFromAngle(angle, 100 * diff.magnitude / range);
 
-        // Check if active
-        if (!Active && flashRoutine != null)
-        {
-            StopCoroutine(flashRoutine);
-            flashRoutine = null;
-            _image.color = color;
-        }
-        else if (Active && flashRoutine == null)
-        {
-            flashRoutine = StartCoroutine(Flash(1f));
+            // Check if active
+            if (!Active && flashRoutine != null)
+            {
+                StopCoroutine(flashRoutine);
+                flashRoutine = null;
+                _image.color = color;
+            }
+            else if (Active && flashRoutine == null)
+            {
+                flashRoutine = StartCoroutine(Flash(1f));
+            }
         }
     }
 	
@@ -106,7 +125,19 @@ public class Blip : MonoBehaviour
 	#endregion
 	
 	#region Methods
-	
+    /// <summary>
+    /// Set up the blip's parameters
+    /// </summary>
+    /// <param name="_target">The target to track</param>
+    /// <param name="_source">The source to base distances on</param>
+    /// <param name="_range">The maximum distance of the blip</param>
+	public void Setup(Transform _target, Transform _source, float _range)
+    {
+        target = _target;
+        source = _source;
+        range = _range;
+        ready = true;
+    }
 	#endregion
 	
 	#region Coroutines
