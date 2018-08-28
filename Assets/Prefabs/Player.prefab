@@ -322,11 +322,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   range: 150
+  entityTags:
+  - Projectile
+  - Pickup
   targetTags:
   - Enemy
   reticle: {fileID: 1645571165636378, guid: 66bc6833ca3b81f448185429dc5b22eb, type: 2}
-  blips:
-  - {fileID: 1764215017072496, guid: 5168df77fb3292e499b6678897c06965, type: 2}
+  entityBlips:
+  - {fileID: 1111038595525406, guid: 50f662e121147f342878d9007650c676, type: 2}
   - {fileID: 1764215017072496, guid: f7d808827fc106f47b9f6a1d55957adf, type: 2}
+  targetBlips:
+  - {fileID: 1764215017072496, guid: 5168df77fb3292e499b6678897c06965, type: 2}
   canvas: {fileID: 0}
   radar: {fileID: 0}

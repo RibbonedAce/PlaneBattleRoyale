@@ -7,6 +7,11 @@ public class Missile : Movement
 {
     #region Variables
     /// <summary>
+    /// <para>The missiles in the game right now</para>
+    /// </summary>
+    private static List<Missile> missiles;
+
+    /// <summary>
     /// <para>How many times per second to make a 360 degree turn</para>
     /// </summary>
     [SerializeField]
@@ -24,6 +29,27 @@ public class Missile : Movement
     /// <para>The target to go towards</para>
     /// </summary>
     public Transform Target { get; set; }
+    #endregion
+
+    #region Properties
+    /// <summary>
+    /// <para>The missiles in the game right now</para>
+    /// </summary>
+    public static List<Missile> Missiles
+    {
+        get
+        {
+            if (missiles == null)
+            {
+                missiles = new List<Missile>();
+            }
+            return missiles;
+        }
+        private set
+        {
+            missiles = value;
+        }
+    }
 
     /// <summary>
     /// <para>How much damage the missile does</para>
@@ -44,6 +70,7 @@ public class Missile : Movement
     protected override void Awake()
 	{
         base.Awake();
+        missiles.Add(this);
 	}
 
     /// <summary>
@@ -81,6 +108,14 @@ public class Missile : Movement
     protected override void OnCollisionEnter(Collision collision)
     {
         base.OnCollisionEnter(collision);
+    }
+
+    /// <summary>
+    /// Called when the script is destroyed
+    /// </summary>
+    protected virtual void OnDestroy()
+    {
+        missiles.Remove(this);
     }
     #endregion
 

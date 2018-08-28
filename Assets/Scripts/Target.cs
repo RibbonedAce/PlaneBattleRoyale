@@ -2,23 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Target 
+public class Target : Entity
 {
     #region Variables
-    /// <summary>
-    /// <para>The Transform that the target tracks</para>
-    /// </summary>
-    public Transform transform;
-
     /// <summary>
     /// <para>The Reticle on screen that tracks the target</para>
     /// </summary>
     public Reticle reticle;
-
-    /// <summary>
-    /// <para>The Blip on radar that tracks the target</para>
-    /// </summary>
-    public Blip blip;
     #endregion
 
     #region Properties
@@ -32,11 +22,9 @@ public class Target
     /// <param name="t">The transform to track</param>
     /// <param name="r">The reticle to use</param>
     /// <param name="b">The blip to use</param>
-    public Target(Transform t, Reticle r, Blip b)
+    public Target(Transform t, Reticle r, Blip b) : base(t, b)
     {
-        transform = t;
         reticle = r;
-        blip = b;
     }
     #endregion
 
@@ -45,15 +33,12 @@ public class Target
     /// Set the activeness of the reticle and the blip
     /// </summary>
     /// <param name="active">What to set the activeness to</param>
-    public void SetActive(bool active)
+    public override void SetActive(bool active)
     {
+        base.SetActive(active);
         if (reticle != null)
         {
             reticle.Active = active;
-        }
-        if (blip != null)
-        {
-            blip.Active = active;
         }
     }
 
