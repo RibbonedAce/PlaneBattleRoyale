@@ -53,10 +53,11 @@ public class PlayerPlane : Plane
         {
             FireProjectile();
         }
-        if (Input.GetButton("Switch"))
+        if (Input.GetButtonDown("Switch"))
         {
             _targeting.GetClosestTarget();
         }
+        AutoPilot = Input.GetButton("Autopilot");
 	}
 
     /// <summary>
@@ -64,10 +65,13 @@ public class PlayerPlane : Plane
     /// </summary>
     protected override void FixedUpdate()
 	{
-        _rigidbody.MoveRotationBy(Quaternion.Euler(Vector3.right * Input.GetAxis("Pitch") * turnSpeed));
-        _rigidbody.MoveRotationBy(Quaternion.Euler(-Vector3.forward * Input.GetAxis("Roll") * turnSpeed));
-        _rigidbody.MoveRotationBy(Quaternion.Euler(Vector3.up * Input.GetAxis("Yaw") * turnSpeed));
-        thrust = Mathf.Lerp(minThrust, maxThrust, (Input.GetAxis("Thrust") + 1) / 2);
+        if (!AutoPilot)
+        {
+            _rigidbody.MoveRotationBy(Quaternion.Euler(Vector3.right * Input.GetAxis("Pitch") * turnSpeed));
+            _rigidbody.MoveRotationBy(Quaternion.Euler(-Vector3.forward * Input.GetAxis("Roll") * turnSpeed));
+            _rigidbody.MoveRotationBy(Quaternion.Euler(Vector3.up * Input.GetAxis("Yaw") * turnSpeed));
+            thrust = Mathf.Lerp(minThrust, maxThrust, (Input.GetAxis("Thrust") + 1) / 2);
+        }
         base.FixedUpdate();
     }
 

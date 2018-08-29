@@ -228,10 +228,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   range: 150
+  entityTags: []
   targetTags:
   - Player
   reticle: {fileID: 0}
-  blips: []
+  entityBlips: []
+  targetBlips: []
   canvas: {fileID: 0}
   radar: {fileID: 0}
 --- !u!114 &114880939436156968
@@ -254,4 +256,5 @@ MonoBehaviour:
   turnSpeed: 1
   ammo: 5
   projectile: {fileID: 1352049365216898, guid: 17853265589e22447842c98a135ee800, type: 2}
+  stamina: 10
   fireDelay: 10

@@ -4,48 +4,48 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Text))]
-public class DirectionUI : MonoBehaviour 
+public class TextUI : MonoBehaviour 
 {
     #region Variables
     /// <summary>
     /// <para>The Text component attached</para>
     /// </summary>
-    private Text _text;
-    #endregion
-
-    #region Properties
-
-    #endregion
-
-    #region Events
-    /// <summary>
+    protected Text _text;
+	#endregion
+	
+	#region Properties
+	
+	#endregion
+	
+	#region Events
+	/// <summary>
     /// Awake is called before start
     /// </summary>
-    private void Awake()
+	protected virtual void Awake()
 	{
         _text = GetComponent<Text>();
 	}
-	
-	/// <summary>
+
+    /// <summary>
     /// Use this for initialization
     /// </summary>
-	private void Start() 
+    protected virtual void Start() 
 	{
 		
 	}
-	
-	/// <summary>
+
+    /// <summary>
     /// Update is called once per frame
     /// </summary>
-	private void Update() 
+    protected virtual void Update() 
 	{
-        _text.text = string.Format("{0:000}", (Vector3.SignedAngle(Vector3.forward, Vector3.ProjectOnPlane(PlayerPlane.Instance.transform.forward, Vector3.up), Vector3.up) + 360) % 360);
-    }   
-	
-	/// <summary>
+		
+	}
+
+    /// <summary>
     /// Use this for physics-related changes
     /// </summary>
-	private void FixedUpdate()
+    protected virtual void FixedUpdate()
 	{
 		
 	}

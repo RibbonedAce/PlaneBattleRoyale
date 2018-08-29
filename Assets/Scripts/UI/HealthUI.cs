@@ -3,14 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(Text))]
-public class AltitudeUI : MonoBehaviour 
+[RequireComponent(typeof(Image))]
+public class HealthUI : MonoBehaviour 
 {
     #region Variables
     /// <summary>
-    /// <para>The Text component attached</para>
+    /// <para>The plane to measure health</para>
     /// </summary>
-    private Text _text;
+    [SerializeField]
+    private Plane plane;
+
+    /// <summary>
+    /// <para>The color gradient that the image goes through</para>
+    /// </summary>
+    [SerializeField]
+    private Gradient color;
+
+    /// <summary>
+    /// <para>The Image component attached</para>
+    /// </summary>
+    private Image _image;
     #endregion
 
     #region Properties
@@ -22,9 +34,9 @@ public class AltitudeUI : MonoBehaviour
     /// Awake is called before start
     /// </summary>
     private void Awake()
-	{
-        _text = GetComponent<Text>();
-	}
+    {
+        _image = GetComponent<Image>();
+    }
 	
 	/// <summary>
     /// Use this for initialization
@@ -39,7 +51,7 @@ public class AltitudeUI : MonoBehaviour
     /// </summary>
 	private void Update() 
 	{
-        _text.text = string.Format("Altitude:\n{0:0.0}", PlayerPlane.Instance.transform.position.y);
+        _image.color = color.Evaluate((float)plane.Health / plane.MaxHealth);
 	}
 	
 	/// <summary>

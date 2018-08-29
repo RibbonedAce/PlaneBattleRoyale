@@ -57,6 +57,11 @@ public class Plane : Movement
 
     #region Properties
     /// <summary>
+    /// <para>Whether the plane is on autopilot</para>
+    /// </summary>
+    public bool AutoPilot { get; protected set; }
+
+    /// <summary>
     /// <para>The maximum health the plane can have</para>
     /// </summary>
     public int MaxHealth
@@ -130,6 +135,11 @@ public class Plane : Movement
     /// </summary>
     protected override void FixedUpdate()
     {
+        if (AutoPilot)
+        {
+            _rigidbody.MoveRotation(Quaternion.RotateTowards(_rigidbody.rotation, Quaternion.LookRotation(Vector3.ProjectOnPlane(transform.forward, Vector3.up)), turnSpeed));
+            thrust = 0.5f;
+        }
         base.FixedUpdate();
     }
 

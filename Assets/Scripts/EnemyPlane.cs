@@ -9,10 +9,21 @@ public class EnemyPlane : Plane
 {
     #region Variables
     /// <summary>
+    /// <para>The number of seconds the enemy can chase before needing to level out</para>
+    /// </summary>
+    [SerializeField]
+    protected float stamina;
+    
+    /// <summary>
     /// <para>The delay between projectile shots</para>
     /// </summary>
     [SerializeField]
     protected float fireDelay;
+
+    /// <summary>
+    /// <para>The number of seconds since a chase started</para>
+    /// </summary>
+    protected float timeChasing;
 
     /// <summary>
     /// <para>The time in seconds since last firing</para>
@@ -38,6 +49,11 @@ public class EnemyPlane : Plane
     /// <para>How far way to the target the plane can be before speeding up</para>
     /// </summary>
     protected readonly float maxDistance = 80f;
+
+    /// <summary>
+    /// <para>The number of seconds needed to recover</para>
+    /// </summary>
+    protected readonly float recoverTime = 5f;
     #endregion
 
     #region Properties
@@ -52,6 +68,7 @@ public class EnemyPlane : Plane
     {
         base.Awake();
         lastFire = fireDelay;
+        timeChasing = stamina;
     }
 
     /// <summary>
@@ -82,6 +99,13 @@ public class EnemyPlane : Plane
             target = _targeting.CurrentTarget.transform;
             _tgtRigidbody = target.GetComponent<Rigidbody>();
         }
+
+        // Manage chase
+        timeChasing -= Time.deltaTime;
+        if (timeChasing <= 0)
+        {
+            StartCoroutine(Recover());
+        }
     }
 
     /// <summary>
@@ -89,13 +113,11 @@ public class EnemyPlane : Plane
     /// </summary>
     protected override void FixedUpdate()
     {
-        if (_tgtRigidbody != null)
+        if (!AutoPilot && _tgtRigidbody != null)
         {
-            Quaternion rotation = Quaternion.RotateTowards(_rigidbody.rotation, Quaternion.LookRotation(_tgtRigidbody.position - _rigidbody.position), turnSpeed);
-            _rigidbody.MoveRotation(rotation);
+            _rigidbody.MoveRotation(Quaternion.RotateTowards(_rigidbody.rotation, Quaternion.LookRotation(_tgtRigidbody.position - _rigidbody.position), turnSpeed));
         }
-        float currentThrust = GetThrust();
-        thrust = Mathf.Lerp(minThrust, maxThrust, (currentThrust + 1) / 2);
+        thrust = Mathf.Lerp(minThrust, maxThrust, (GetThrust() + 1) / 2);
         base.FixedUpdate();
     }
 
@@ -119,6 +141,10 @@ public class EnemyPlane : Plane
         lastFire = 0f;
     }
 
+    /// <summary>
+    /// Finds the thrust needed based on distance to target
+    /// </summary>
+    /// <returns>The thrust level that the enemy will use</returns>
     protected virtual float GetThrust()
     {
         float distance = _tgtRigidbody == null ? minDistance + 1 : Vector3.Distance(_rigidbody.position, _tgtRigidbody.position);
@@ -138,7 +164,17 @@ public class EnemyPlane : Plane
     #endregion
 
     #region Coroutines
-
+    /// <summary>
+    /// Recover from chasing the target
+    /// </summary>
+    /// <returns>The time to recover</returns>
+    protected virtual IEnumerator Recover()
+    {
+        AutoPilot = true;
+        yield return new WaitForSeconds(recoverTime);
+        timeChasing = stamina;
+        AutoPilot = false;
+    }
     #endregion
 }
 

@@ -1,10 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
-[RequireComponent(typeof(Text))]
-public class MissileAlertUI : MonoBehaviour 
+public class MissileAlertUI : TextUI 
 {
     #region Variables
     /// <summary>
@@ -17,39 +15,35 @@ public class MissileAlertUI : MonoBehaviour
     /// <para>A missile that is attacking the source</para>
     /// </summary>
     private Missile currentMissile;
+    #endregion
 
+    #region Properties
+
+    #endregion
+
+    #region Events
     /// <summary>
-    /// <para>The Text component attached</para>
-    /// </summary>
-    private Text _text;
-	#endregion
-	
-	#region Properties
-	
-	#endregion
-	
-	#region Events
-	/// <summary>
     /// Awake is called before start
     /// </summary>
-	private void Awake()
-	{
-        _text = GetComponent<Text>();	
-	}
-	
-	/// <summary>
+    protected override void Awake()
+    {
+        base.Awake();
+    }
+
+    /// <summary>
     /// Use this for initialization
     /// </summary>
-	private void Start() 
-	{
-		
-	}
-	
-	/// <summary>
+    protected override void Start()
+    {
+        base.Start();
+    }
+
+    /// <summary>
     /// Update is called once per frame
     /// </summary>
-	private void Update() 
-	{
+    protected override void Update()
+    {
+        base.Update();
         if (currentMissile == null)
         {
             foreach (Missile m in Missile.Missiles)
@@ -62,15 +56,15 @@ public class MissileAlertUI : MonoBehaviour
             }
         }
         _text.text = currentMissile != null ? "MISSILE ALERT" : "";
-	}
-	
-	/// <summary>
+    }
+
+    /// <summary>
     /// Use this for physics-related changes
     /// </summary>
-	private void FixedUpdate()
-	{
-		
-	}
+    protected override void FixedUpdate()
+    {
+        base.FixedUpdate();
+    }
 	#endregion
 	
 	#region Methods
