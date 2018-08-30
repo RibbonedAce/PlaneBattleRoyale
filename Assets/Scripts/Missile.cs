@@ -15,6 +15,12 @@ public class Missile : Movement
     /// <para>How many times per second to make a 360 degree turn</para>
     /// </summary>
     [SerializeField]
+    private float lifeSpan;
+
+    /// <summary>
+    /// <para>How many times per second to make a 360 degree turn</para>
+    /// </summary>
+    [SerializeField]
     private float turnSpeed;
 
     /// <summary>
@@ -71,6 +77,7 @@ public class Missile : Movement
 	{
         base.Awake();
         missiles.Add(this);
+        Destroy(gameObject, lifeSpan);
 	}
 
     /// <summary>

@@ -156,5 +156,6 @@ MonoBehaviour:
   thrust: 20
   drag: 0.5
   stallSpeed: 0
+  lifeSpan: 8
   turnSpeed: 0.1
   damage: 4

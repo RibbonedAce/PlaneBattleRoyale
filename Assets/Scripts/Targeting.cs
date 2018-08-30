@@ -6,85 +6,27 @@ public class Targeting : MonoBehaviour
 {
     #region Variables
     /// <summary>
-    /// <para>How many units away the radar can see enemies</para>
-    /// </summary>
-    [SerializeField]
-    private float range;
-
-    /// <summary>
-    /// <para>The tags of the objects to detect</para>
-    /// </summary>
-    [SerializeField]
-    private string[] entityTags;
-
-    /// <summary>
     /// <para>The tags of the objects to target</para>
     /// </summary>
     [SerializeField]
-    private string[] targetTags;
-
-    /// <summary>
-    /// <para>The Reticle prefab for each target</para>
-    /// </summary>
-    [SerializeField]
-    private GameObject reticle;
-
-    /// <summary>
-    /// <para>The Blip prefab for each non-target entity</para>
-    /// </summary>
-    [SerializeField]
-    private GameObject[] entityBlips;
-
-    /// <summary>
-    /// <para>The Blip prefab for each target</para>
-    /// </summary>
-    [SerializeField]
-    private GameObject[] targetBlips;
-
-    /// <summary>
-    /// <para>The canvas to put the Reticles on</para>
-    /// </summary>
-    [SerializeField]
-    private Transform canvas;
-
-    /// <summary>
-    /// <para>The radar to put the Blips on</para>
-    /// </summary>
-    [SerializeField]
-    private Transform radar;
+    protected string[] targetTags;
 
     /// <summary>
     /// <para>The maximum distance to lock on at</para>
     /// </summary>
-    private static readonly float lockDistance = 80f;
+    protected static readonly float lockDistance = 80f;
     #endregion
 
     #region Properties
     /// <summary>
-    /// <para>The list of non-target entities</para>
-    /// </summary>
-    public List<Entity> Entities { get; private set; }
-
-    /// <summary>
     /// <para>The list of targets</para>
     /// </summary>
-    public List<Target> Targets { get; private set; }
-
-    /// <summary>
-    /// <para>How many units away the radar can see enemies</para>
-    /// </summary>
-    public float Range
-    {
-        get
-        {
-            return range;
-        }
-    }
+    public List<Target> Targets { get; protected set; }
 
     /// <summary>
     /// <para>The target currently being tracked</para>
     /// </summary>
-    public Target CurrentTarget { get; private set; }
+    public Target CurrentTarget { get; protected set; }
 
     /// <summary>
     /// <para>The target currently being locked</para>
@@ -103,32 +45,31 @@ public class Targeting : MonoBehaviour
             }
         }
     }
-	#endregion
-	
-	#region Events
-	/// <summary>
+    #endregion
+
+    #region Events
+    /// <summary>
     /// Awake is called before start
     /// </summary>
-	private void Awake()
+    protected virtual void Awake()
 	{
-        Entities = new List<Entity>();
         Targets = new List<Target>();
 	}
-	
-	/// <summary>
+
+    /// <summary>
     /// Use this for initialization
     /// </summary>
-	private void Start() 
+    protected virtual void Start() 
 	{
 		
 	}
-	
-	/// <summary>
+
+    /// <summary>
     /// Update is called once per frame
     /// </summary>
-	private void Update()
+    protected virtual void Update()
     { 
-        // Matching reticles and blips to targets
+        // Finding targets
         for (int i = 0; i < Targets.Count;)
         {
             if (Targets[i].transform == null)
@@ -150,66 +91,22 @@ public class Targeting : MonoBehaviour
             {
                 if (!Target.ContainsTransform(Targets, g.transform))
                 {
-                    Blip b = null;
-                    if (radar != null)
-                    {
-                        b = Instantiate(targetBlips[i], radar).GetComponent<Blip>();
-                        b.Setup(g.transform, transform, range);
-                    }
-
-                    Reticle r = null;
-                    if (canvas != null)
-                    {
-                        r = Instantiate(reticle, canvas).GetComponent<Reticle>();
-                        r.Setup(g.transform, transform, lockDistance);
-                    }
-
-                    Targets.Add(new Target(g.transform, r, b));
+                    Targets.Add(new Target(g.transform, null, null));
                 }
             }
         }
 
-        // Updating the active reticle
+        // Updating the active target
         if (CurrentTarget == null)
         {
             GetClosestTarget();
         }
-
-        // Matching blips to other entities
-        for (int i = 0; i < Entities.Count;)
-        {
-            if (Entities[i].transform == null)
-            {
-                Entities.RemoveAt(i);
-            }
-            else
-            {
-                ++i;
-            }
-        }
-        for (int i = 0; i < entityTags.Length; ++i)
-        {
-            foreach (GameObject g in GameObject.FindGameObjectsWithTag(entityTags[i]))
-            {
-                if (!Entity.ContainsTransform(Entities, g.transform))
-                {
-                    Blip b = null;
-                    if (radar != null)
-                    {
-                        b = Instantiate(entityBlips[i], radar).GetComponent<Blip>();
-                        b.Setup(g.transform, transform, range);
-                    }
-
-                    Entities.Add(new Entity(g.transform, b));
-                }
-            }
-        }
 	}
-	
-	/// <summary>
+
+    /// <summary>
     /// Use this for physics-related changes
     /// </summary>
-	private void FixedUpdate()
+    protected virtual void FixedUpdate()
 	{
 		
 	}

@@ -4,7 +4,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(Collider))]
-[RequireComponent(typeof(Targeting))]
+[RequireComponent(typeof(PlayerTargeting))]
 public class PlayerPlane : Plane
 {
     #region Variables

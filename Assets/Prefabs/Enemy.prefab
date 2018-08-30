@@ -227,15 +227,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee9ca76452ddf164b89f3de4661c1425, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  range: 150
-  entityTags: []
   targetTags:
   - Player
-  reticle: {fileID: 0}
-  entityBlips: []
-  targetBlips: []
-  canvas: {fileID: 0}
-  radar: {fileID: 0}
 --- !u!114 &114880939436156968
 MonoBehaviour:
   m_ObjectHideFlags: 1
