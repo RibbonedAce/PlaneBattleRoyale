@@ -26,6 +26,12 @@ public class Movement : MonoBehaviour
     protected float stallSpeed;
 
     /// <summary>
+    /// <para>The explosion to use when being destroyed</para>
+    /// </summary>
+    [SerializeField]
+    protected GameObject explosion;
+
+    /// <summary>
     /// <para>The Rigidbody component attached</para>
     /// </summary>
     protected Rigidbody _rigidbody;
@@ -85,6 +91,7 @@ public class Movement : MonoBehaviour
     {
         if (!collision.collider.isTrigger)
         {
+            Instantiate(explosion, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
     }

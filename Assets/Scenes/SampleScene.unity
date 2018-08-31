@@ -428,11 +428,6 @@ Prefab:
       propertyPath: radar
       value: 
       objectReference: {fileID: 1603089191}
-    - target: {fileID: 54658789931793872, guid: 061afcc042600dd4783ff0313b729e5b,
-        type: 2}
-      propertyPath: m_IsKinematic
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 061afcc042600dd4783ff0313b729e5b, type: 2}
   m_IsPrefabParent: 0

@@ -231,6 +231,7 @@ MonoBehaviour:
   turnSpeed: 0.5
   fireDelay: 10
   projectile: {fileID: 1352049365216898, guid: 17853265589e22447842c98a135ee800, type: 2}
+  explosion: {fileID: 1633933479358134, guid: 2498dacb73be05a4190ba27159406f7c, type: 2}
 --- !u!114 &114662290625443122
 MonoBehaviour:
   m_ObjectHideFlags: 1

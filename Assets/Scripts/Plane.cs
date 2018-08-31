@@ -97,6 +97,7 @@ public class Plane : Movement
             health = Mathf.Clamp(value, 0, maxHealth);
             if (health <= 0)
             {
+                Instantiate(explosion, transform.position, Quaternion.identity);
                 Destroy(gameObject);
             }
         }

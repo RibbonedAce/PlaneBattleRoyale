@@ -33,6 +33,12 @@ public class EnemySAM : MonoBehaviour
     private GameObject projectile;
 
     /// <summary>
+    /// <para>The explosion to use when destroyed</para>
+    /// </summary>
+    [SerializeField]
+    private GameObject explosion;
+
+    /// <summary>
     /// <para>The health of the plane</para>
     /// </summary>
     private int health;
@@ -78,6 +84,7 @@ public class EnemySAM : MonoBehaviour
             health = Mathf.Clamp(value, 0, maxHealth);
             if (health <= 0)
             {
+                Instantiate(explosion, transform.position, Quaternion.identity);
                 Destroy(gameObject);
             }
         }

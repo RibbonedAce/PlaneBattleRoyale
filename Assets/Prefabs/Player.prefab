@@ -265,9 +265,9 @@ Rigidbody:
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 1
   m_UseGravity: 0
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -304,6 +304,7 @@ MonoBehaviour:
   thrust: 0.5
   drag: 0.04761905
   stallSpeed: 5
+  explosion: {fileID: 1633933479358134, guid: 2498dacb73be05a4190ba27159406f7c, type: 2}
   maxHealth: 10
   minThrust: 0
   maxThrust: 1
